@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Chess-JS</title>
+
+  <link rel="stylesheet" href="./src/css/styles.css">
 
   <style>
     #container {  width: 400px; height: 400px; }
@@ -15,16 +17,53 @@
   <div id="container">
      <!-- The board will be here... -->
   </div>
+  <div style="margin-top: 50px;">
+    <button id="clear-btn">CLEAR BOARD</button>
+    <button id="apply-position-btn">APPLY POSITION</button>
+    <button id="apply-starting-position-btn">APPLY STARTING POSITION</button>
+    <button id="flip-btn">FLIP</button>
+  </div>
+  
 </body>
 
 <script type="module">
   import Board from './src/Board.js';
 
   const cfg = {
+    container: '#container',
+    position: 'start',
+    orientation: 'black',
     showCoordinates: true
   }
 
-  const board = new Board('container', cfg);
+
+
+  const board = new Board(cfg);
   board.draw();
+
+  const clearBtn = document.getElementById("clear-btn");
+  const applyPositionBtn = document.getElementById("apply-position-btn");
+  const applyStartingPositionBtn = document.getElementById("apply-starting-position-btn");
+  const flipBtn = document.getElementById("flip-btn");
+  
+  clearBtn.onclick = function() {
+    board.clear();
+  }
+
+  applyPositionBtn.onclick = function() {
+    const position = {
+      wK: ['h0'],
+      bK: ['a7']
+    }
+    board.applyPosition(position);
+  }
+
+  applyStartingPositionBtn.onclick = function() {
+    board.applyPosition('start'); 
+  }
+
+  flipBtn.onclick = function() {
+    board.flip(); 
+  }
 </script>
 </html>
